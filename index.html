@@ -371,10 +371,9 @@
   <div class="floating-hearts" id="floatingHearts"></div>
 
   <!-- Background music -->
-<audio id="bgMusic" loop autoplay>
-  <source src="daisies.mp3" type="audio/mpeg">
-</audio>
-
+  <audio id="bgMusic" loop autoplay>
+    <source src="daisies.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Music info -->
   <div class="music-info">
@@ -400,13 +399,12 @@
       <div>"You make my days brighter just by being in them." </div>
     </div>
     <div class="slide final">
-      <img src="love.jpg" alt="Us">
+      <img src="love1.jpg" alt="Us">
        <p style="margin-top:15px; font-size:1.3rem;">Happy Monthsary, my love ❤️
         <br>Thank you for being my constant reminder of peace and joy,
         <br>my favorite story to live with every day,
         <br>and the reason I always look forward to tomorrow.
         <br><span class="heart">💖</span></p>
-      <span class="heart">💖</span>
     </div>
   </div>
 
@@ -434,7 +432,7 @@
     const floatingHearts = document.getElementById('floatingHearts');
     
     let current = 0;
-    let isPlaying = true;
+    let isPlaying = false; // Start with autoplay disabled
     let slideInterval;
     let progressInterval;
     let progress = 0;
@@ -444,8 +442,9 @@
     function init() {
       createIndicators();
       createFloatingHearts();
-      startSlideshow();
+      // Don't start slideshow automatically
       startMusic();
+      document.getElementById('playPauseBtn').textContent = '▶️'; // Show play button
     }
 
     // Create slide indicators
