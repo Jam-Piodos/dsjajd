@@ -539,22 +539,20 @@
     function previousSlide() {
       if (current > 0) {
         showSlide(current - 1);
-        if (!isPlaying) startSlideshow();
+        // Don't automatically start slideshow when navigating
       }
     }
 
     function goToSlide(index) {
       showSlide(index);
-      if (index < slides.length - 1 && !isPlaying) {
-        startSlideshow();
-      }
+      // Don't automatically start slideshow when clicking indicators
     }
 
     // Play/Pause controls
     function togglePlayPause() {
       if (isPlaying) {
         pauseSlideshow();
-      } else if (current < slides.length - 1) {
+      } else {
         resumeSlideshow();
       }
     }
