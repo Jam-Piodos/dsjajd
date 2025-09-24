@@ -3,87 +3,625 @@
 <head>
   <meta charset="UTF-8">
   <title>Happy Monthsary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       overflow: hidden;
+      position: relative;
     }
+
+    /* Animated background patterns */
+    .bg-patterns {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .pattern {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .pattern:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .pattern:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      left: 80%;
+      animation-delay: 2s;
+    }
+
+    .pattern:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 80%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    .pattern:nth-child(4) {
+      width: 100px;
+      height: 100px;
+      top: 10%;
+      left: 70%;
+      animation-delay: 1s;
+    }
+
+    .pattern:nth-child(5) {
+      width: 140px;
+      height: 140px;
+      top: 40%;
+      left: 5%;
+      animation-delay: 3s;
+    }
+
+    .pattern:nth-child(6) {
+      width: 90px;
+      height: 90px;
+      top: 70%;
+      left: 60%;
+      animation-delay: 5s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.1;
+      }
+    }
+
+    /* Hearts floating animation */
+    .floating-hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .heart-float {
+      position: absolute;
+      color: rgba(255, 182, 193, 0.4);
+      font-size: 1.5rem;
+      animation: heartFloat 8s linear infinite;
+    }
+
+    @keyframes heartFloat {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Main slideshow container */
     .slideshow {
       position: relative;
-      width: 80%;
-      max-width: 700px;
-      height: 400px;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 800px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: center;
       align-items: center;
       color: #fff;
       text-align: center;
-      font-size: 1.5rem;
-      padding: 20px;
+      padding: 40px;
+      z-index: 3;
+      transition: all 0.3s ease;
     }
+
+    .slideshow:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+    }
+
     .slide {
       position: absolute;
       opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      transform: translateX(50px);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      padding: 20px;
     }
+
     .slide.active {
       opacity: 1;
+      transform: translateX(0);
     }
+
+    .slide.prev {
+      transform: translateX(-50px);
+    }
+
+    .slide p, .slide div {
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.6;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 15px;
+    }
+
     img {
       max-width: 100%;
-      max-height: 100%;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      max-height: 300px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
     }
+
+    img:hover {
+      transform: scale(1.05);
+    }
+
     .heart {
-      font-size: 2rem;
-      animation: pulse 1.5s infinite;
+      font-size: 2.5rem;
+      animation: pulse 2s infinite;
+      display: inline-block;
+      margin: 10px;
     }
+
     @keyframes pulse {
       0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+      50% { transform: scale(1.3); }
       100% { transform: scale(1); }
+    }
+
+    /* Interactive controls */
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 4;
+    }
+
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .play-pause {
+      font-size: 1rem;
+    }
+
+    /* Progress indicator */
+    .progress-bar {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+      width: 0%;
+      transition: width 0.1s ease;
+      border-radius: 2px;
+    }
+
+    /* Slide indicators */
+    .slide-indicators {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .indicator.active {
+      background: #fff;
+      transform: scale(1.2);
+    }
+
+    /* Music control */
+    .music-info {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 10px 15px;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .music-note {
+      animation: musicNote 2s ease-in-out infinite;
+    }
+
+    @keyframes musicNote {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .slideshow {
+        width: 95%;
+        height: 400px;
+        padding: 20px;
+      }
+      
+      .slide p, .slide div {
+        font-size: 1.2rem;
+      }
+      
+      .controls {
+        bottom: 10px;
+      }
+      
+      .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    /* Final slide special styling */
+    .slide.final {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+    }
+
+    .slide.final .heart {
+      animation: finalHeart 1.5s ease-in-out infinite;
+    }
+
+    @keyframes finalHeart {
+      0%, 100% { transform: scale(1) rotate(0deg); color: #ff6b9d; }
+      33% { transform: scale(1.2) rotate(5deg); color: #ff8a80; }
+      66% { transform: scale(1.1) rotate(-5deg); color: #ffd93d; }
     }
   </style>
 </head>
 <body>
+  <!-- Background patterns -->
+  <div class="bg-patterns">
+    <div class="pattern"></div>
+    <div class="pattern"></div>
+    <div class="pattern"></div>
+    <div class="pattern"></div>
+    <div class="pattern"></div>
+    <div class="pattern"></div>
+  </div>
+
+  <!-- Floating hearts -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- Background music -->
+  <audio id="bgMusic" loop>
+    <source src="daisies.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music info -->
+  <div class="music-info">
+    <span class="music-note">🎵</span>
+    <span>Now Playing: Daisies</span>
+  </div>
+
+  <!-- Main slideshow -->
   <div class="slideshow">
-    <div class="slide active">“Kung kape ka, dili nako kalimtan ang imong tam-is.” ☕❤️</div>
-    <div class="slide">“Kung buwan ka, ikaw ang akong kahayag sa kangitngit.” 🌙✨</div>
-    <div class="slide">“Pwede ba ikaw ra ang akong signal, kay ikaw ra ang akong pangitaon.” 📶💘</div>
-    <div class="slide">“Kung ulan ka, gusto ko maligo pirmi kay presko imong presensya.” 🌧️💞</div>
-    <div class="slide">“Kung libro ka, ikaw ra akong basahon hangtod sa hangtod.” 📖💓</div>
-    <div class="slide">
-      <img src="love.jpg" alt="Us">
-      <p style="margin-top:15px; font-size:1.3rem;">Happy Monthsary, my love ❤️
-      <br>Ikaw ang akong sugilanon nga dili matapos,
-      <br>ang akong awit nga pirmi nakong balik-balikon,
-      <br>ug ang akong gugma nga walay kahumanan.
-      <br><span class="heart">💖</span></p>
+    <div class="slide active">
+      <div>"Kung kape ka, dili nako kalimtan ang imong tam-is." ☕❤️</div>
     </div>
+    <div class="slide">
+      <div>"Kung buwan ka, ikaw ang akong kahayag sa kangitngit." 🌙✨</div>
+    </div>
+    <div class="slide">
+      <div>"Pwede ba ikaw ra ang akong signal, kay ikaw ra ang akong pangitaon." 📶💘</div>
+    </div>
+    <div class="slide">
+      <div>"Kung ulan ka, gusto ko maligo pirmi kay presko imong presensya." 🌧️💞</div>
+    </div>
+    <div class="slide">
+      <div>"Kung libro ka, ikaw ra akong basahon hangtod sa hangtod." 📖💓</div>
+    </div>
+    <div class="slide final">
+      <img src="love.jpg" alt="Us">
+      <p style="margin-top:20px; font-size:1.4rem; font-weight: 600;">
+        Happy Monthsary, my love ❤️<br>
+        Ikaw ang akong sugilanon nga dili matapos,<br>
+        ang akong awit nga pirmi nakong balik-balikon,<br>
+        ug ang akong gugma nga walay kahumanan.
+      </p>
+      <span class="heart">💖</span>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Slide indicators -->
+  <div class="slide-indicators" id="slideIndicators"></div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="control-btn" onclick="previousSlide()" title="Previous">‹</button>
+    <button class="control-btn play-pause" onclick="togglePlayPause()" title="Play/Pause" id="playPauseBtn">⏸️</button>
+    <button class="control-btn" onclick="nextSlide()" title="Next">›</button>
+    <button class="control-btn" onclick="toggleMusic()" title="Music On/Off" id="musicBtn">🎵</button>
   </div>
 
   <script>
     const slides = document.querySelectorAll('.slide');
+    const indicators = document.getElementById('slideIndicators');
+    const progressFill = document.getElementById('progressFill');
+    const bgMusic = document.getElementById('bgMusic');
+    const floatingHearts = document.getElementById('floatingHearts');
+    
     let current = 0;
+    let isPlaying = true;
+    let slideInterval;
+    let progressInterval;
+    let progress = 0;
+    const slideDuration = 5000; // 5 seconds per slide
 
-    function showNextSlide() {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
+    // Initialize
+    function init() {
+      createIndicators();
+      createFloatingHearts();
+      startSlideshow();
+      startMusic();
     }
 
-    setInterval(showNextSlide, 4000);
+    // Create slide indicators
+    function createIndicators() {
+      slides.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.className = 'indicator';
+        if (index === 0) indicator.classList.add('active');
+        indicator.onclick = () => goToSlide(index);
+        indicators.appendChild(indicator);
+      });
+    }
+
+    // Create floating hearts
+    function createFloatingHearts() {
+      setInterval(() => {
+        if (floatingHearts.children.length < 6) {
+          const heart = document.createElement('div');
+          heart.className = 'heart-float';
+          heart.textContent = ['💕', '💖', '💗', '💝', '💞'][Math.floor(Math.random() * 5)];
+          heart.style.left = Math.random() * 100 + '%';
+          heart.style.animationDelay = Math.random() * 2 + 's';
+          floatingHearts.appendChild(heart);
+          
+          setTimeout(() => {
+            if (heart.parentNode) {
+              heart.parentNode.removeChild(heart);
+            }
+          }, 8000);
+        }
+      }, 2000);
+    }
+
+    // Start slideshow
+    function startSlideshow() {
+      if (slideInterval) clearInterval(slideInterval);
+      if (progressInterval) clearInterval(progressInterval);
+      
+      progress = 0;
+      updateProgress();
+      
+      slideInterval = setInterval(() => {
+        if (current < slides.length - 1) { // Don't auto-advance from last slide
+          nextSlide();
+        } else {
+          pauseSlideshow();
+        }
+      }, slideDuration);
+
+      progressInterval = setInterval(() => {
+        if (isPlaying) {
+          progress += 100 / (slideDuration / 100);
+          updateProgress();
+          
+          if (progress >= 100) {
+            progress = 0;
+          }
+        }
+      }, 100);
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      progressFill.style.width = progress + '%';
+    }
+
+    // Show slide
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active', 'prev');
+        if (i < index) slide.classList.add('prev');
+      });
+      
+      slides[index].classList.add('active');
+      
+      // Update indicators
+      document.querySelectorAll('.indicator').forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === index);
+      });
+      
+      current = index;
+      progress = 0;
+    }
+
+    // Navigation functions
+    function nextSlide() {
+      if (current < slides.length - 1) {
+        showSlide(current + 1);
+      }
+    }
+
+    function previousSlide() {
+      if (current > 0) {
+        showSlide(current - 1);
+        if (!isPlaying) startSlideshow();
+      }
+    }
+
+    function goToSlide(index) {
+      showSlide(index);
+      if (index < slides.length - 1 && !isPlaying) {
+        startSlideshow();
+      }
+    }
+
+    // Play/Pause controls
+    function togglePlayPause() {
+      if (isPlaying) {
+        pauseSlideshow();
+      } else if (current < slides.length - 1) {
+        resumeSlideshow();
+      }
+    }
+
+    function pauseSlideshow() {
+      isPlaying = false;
+      clearInterval(slideInterval);
+      clearInterval(progressInterval);
+      document.getElementById('playPauseBtn').textContent = '▶️';
+    }
+
+    function resumeSlideshow() {
+      isPlaying = true;
+      startSlideshow();
+      document.getElementById('playPauseBtn').textContent = '⏸️';
+    }
+
+    // Music controls
+    function startMusic() {
+      bgMusic.volume = 0.3;
+      bgMusic.play().catch(() => {
+        // Auto-play might be blocked, user needs to interact first
+        document.addEventListener('click', () => {
+          bgMusic.play();
+        }, { once: true });
+      });
+    }
+
+    function toggleMusic() {
+      const musicBtn = document.getElementById('musicBtn');
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.textContent = '🎵';
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent = '🔇';
+      }
+    }
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowRight':
+        case ' ':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          previousSlide();
+          break;
+        case 'p':
+        case 'P':
+          e.preventDefault();
+          togglePlayPause();
+          break;
+        case 'm':
+        case 'M':
+          e.preventDefault();
+          toggleMusic();
+          break;
+      }
+    });
+
+    // Initialize on page load
+    window.addEventListener('load', init);
   </script>
 </body>
 </html>
